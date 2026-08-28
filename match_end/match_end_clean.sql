@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW clevertap.session_start_events AS
+CREATE OR REPLACE VIEW clevertap.match_end_events AS
 
 SELECT
     -- Event
@@ -16,9 +16,33 @@ SELECT
     element_at(eventProps, 'session_id').member5
         AS session_id,
 
-    -- session_start specific event properties
-    element_at(eventProps, 'game_open_source').member5
-        AS game_open_source,
+    element_at(eventProps, 'match_id').member5
+        AS match_id,
+
+    -- match_end specific event properties
+    element_at(eventProps, 'match_end_type').member5
+        AS match_end_type,
+
+    element_at(eventProps, 'match_result').member5
+        AS match_result,
+
+    element_at(eventProps, 'match_end_error_type').member5
+        AS match_end_error_type,
+
+    element_at(eventProps, 'opponent_type').member5
+        AS opponent_type,
+
+    element_at(eventProps, 'game_mode').member5
+        AS game_mode,
+
+    element_at(eventProps, 'runs_scored').member5
+        AS runs_scored,
+
+    element_at(eventProps, 'wickets_taken').member5
+        AS wickets_taken,
+
+    element_at(eventProps, 'culpritplayer_id').member5
+        AS culpritplayer_id,
 
     -- Application
     element_at(eventProps, 'app_version').member5
@@ -110,4 +134,4 @@ SELECT
         AS INTEGER
     ) AS screen_height
 
-FROM clevertap.session_start;
+FROM clevertap.match_end;

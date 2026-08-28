@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW clevertap.session_start_events AS
+CREATE OR REPLACE VIEW clevertap.pack_open_completed_events AS
 
 SELECT
     -- Event
@@ -16,7 +16,7 @@ SELECT
     element_at(eventProps, 'session_id').member5
         AS session_id,
 
-    -- session_start specific event properties
+    -- pack_open_completed specific event properties (Double-check if this belongs here!)
     element_at(eventProps, 'game_open_source').member5
         AS game_open_source,
 
@@ -110,4 +110,4 @@ SELECT
         AS INTEGER
     ) AS screen_height
 
-FROM clevertap.session_start;
+FROM clevertap.pack_open_completed;

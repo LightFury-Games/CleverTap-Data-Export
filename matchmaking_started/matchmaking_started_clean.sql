@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW clevertap.session_start_events AS
+CREATE OR REPLACE VIEW clevertap.matchmaking_started_events AS
 
 SELECT
     -- Event
@@ -16,9 +16,18 @@ SELECT
     element_at(eventProps, 'session_id').member5
         AS session_id,
 
-    -- session_start specific event properties
-    element_at(eventProps, 'game_open_source').member5
-        AS game_open_source,
+    -- matchmaking_started specific event properties
+    element_at(eventProps, 'opponent_type').member5
+        AS opponent_type,
+
+    element_at(eventProps, 'ruleset_id').member5
+        AS ruleset_id,
+
+    element_at(eventProps, 'squad_type').member5
+        AS squad_type,
+
+    element_at(eventProps, 'game_mode').member5
+        AS game_mode,
 
     -- Application
     element_at(eventProps, 'app_version').member5
@@ -110,4 +119,4 @@ SELECT
         AS INTEGER
     ) AS screen_height
 
-FROM clevertap.session_start;
+FROM clevertap.matchmaking_started;

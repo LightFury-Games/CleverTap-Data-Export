@@ -1,5 +1,4 @@
-
-CREATE EXTERNAL TABLE clevertap.match_end (
+CREATE EXTERNAL TABLE clevertap.matchmaking_ended (
     commPrefs MAP<
         STRING,
         STRUCT<
@@ -108,4 +107,4 @@ CREATE EXTERNAL TABLE clevertap.match_end (
     >
 )
 STORED AS PARQUET
-LOCATION 's3://clevertap-prod-export/match_end';
+LOCATION 's3://clevertap-prod-export/matchmaking_ended';
