@@ -19,7 +19,7 @@ SELECT
     element_at(eventProps, 'match_id').member5
         AS match_id,
 
-    -- Batting result
+    -- Batting result (Just Testing)
     element_at(eventProps, 'striker').member5
         AS striker,
 
