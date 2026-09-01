@@ -13,4 +13,3 @@ where cast(event_time as date) >= cast('2026-08-10' as date)
 group by 1,2 
 order by 1,2
 ;
-
