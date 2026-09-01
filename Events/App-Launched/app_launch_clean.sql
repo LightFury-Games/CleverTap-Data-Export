@@ -4,9 +4,14 @@ SELECT
     -- Event
     eventName AS event_name,
 
+    -- Unix epoch seconds -> timestamp
     from_unixtime(
         TRY_CAST(eventTime AS BIGINT)
     ) AS event_time,
+
+    cast(from_unixtime(
+        TRY_CAST(eventTime AS BIGINT)
+    ) as date) AS event_date,
 
     -- CleverTap / player identifiers
     element_at(identity, 'clevertapId').member0
