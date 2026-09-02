@@ -1,52 +1,42 @@
-CREATE TABLE clevertap.dim_users
-WITH (
-    format = 'PARQUET',
-    external_location = 's3://clevertap-prod-export/athena/dim_users/'
-)
-AS
 
 WITH ranked_users AS (
     SELECT
         clevertap_id,
         identity_value,
         email,
-        full_name,
 
         device_model,
         device_make,
         platform,
-        os_version,
-        app_version,
-        sdk_version,
+        ct_os_version,
+        ct_app_version,
+        ct_sdk_version,
         network_carrier,
 
         event_time,
 
         ROW_NUMBER() OVER (
-            PARTITION BY clevertap_id
+            PARTITION BY identity_value
             ORDER BY event_time DESC
         ) AS rn
 
-    FROM clevertap.app_launched_events_table
+    FROM clevertap.app_launched_events
 
-    WHERE clevertap_id IS NOT NULL
+    WHERE identity_value IS NOT NULL 
+        and identity_value <> ''
+        -- and event_date = cast('2026-08-22' as date)
 )
 
-SELECT
-    clevertap_id,
+SELECT identity_value,
 
     -- Latest known user information
     MAX(
-        CASE WHEN rn = 1 THEN identity_value END
-    ) AS current_identity,
+        CASE WHEN rn = 1 THEN clevertap_id END
+    ) AS latest_clevertap_id,
 
     MAX(
         CASE WHEN rn = 1 THEN email END
-    ) AS current_email,
-
-    MAX(
-        CASE WHEN rn = 1 THEN full_name END
-    ) AS full_name,
+    ) AS latest_email,
 
     -- Latest device used
     MAX(
@@ -62,15 +52,15 @@ SELECT
     ) AS latest_platform,
 
     MAX(
-        CASE WHEN rn = 1 THEN os_version END
+        CASE WHEN rn = 1 THEN ct_os_version END
     ) AS latest_os_version,
 
     MAX(
-        CASE WHEN rn = 1 THEN app_version END
+        CASE WHEN rn = 1 THEN ct_app_version END
     ) AS latest_app_version,
 
     MAX(
-        CASE WHEN rn = 1 THEN sdk_version END
+        CASE WHEN rn = 1 THEN ct_sdk_version END
     ) AS latest_sdk_version,
 
     MAX(
@@ -79,4 +69,6 @@ SELECT
 
 FROM ranked_users
 
-GROUP BY clevertap_id;
+GROUP BY 1
+
+;
