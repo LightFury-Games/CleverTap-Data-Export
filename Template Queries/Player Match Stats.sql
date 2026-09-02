@@ -7,4 +7,5 @@ select
 from clevertap.bat_result_events
 where event_date = cast('2026-08-22' as date )
 group by 1 , 2 
-order by total_runs desc;
+order by total_runs desc
+;
