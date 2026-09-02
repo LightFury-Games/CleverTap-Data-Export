@@ -20,6 +20,9 @@ SELECT
     element_at(eventProps, 'session_id').member5
         AS session_id,
 
+    element_at(eventProps, 'pack_id').member5
+        AS pack_id,
+
     -- pack_open_completed specific event properties (Double-check if this belongs here!)
     element_at(eventProps, 'game_open_source').member5
         AS game_open_source,
