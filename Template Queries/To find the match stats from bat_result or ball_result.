@@ -1,0 +1,18 @@
+SELECT 
+    COALESCE(bat.email, ball.email)                                     AS email
+    , SUM(bat.runs_scored)                                              AS total_runs
+    , SUM(CASE WHEN bat.is_four = 'Yes' THEN 1 ELSE 0 END)             AS num_fours
+    , SUM(CASE WHEN bat.is_six = 'Yes' THEN 1 ELSE 0 END)              AS num_sixes
+    , SUM(CASE WHEN ball.is_wicket = 'Yes' THEN 1 ELSE 0 END)          AS wickets_taken
+    , SUM(CASE WHEN ball.is_no_ball = 'Yes' THEN 1 ELSE 0 END)         AS no_balls_bowled
+    , SUM(CASE WHEN ball.is_wide = 'Yes' THEN 1 ELSE 0 END)            AS wide_balls_bowled
+FROM clevertap.bat_result_events AS bat
+FULL OUTER JOIN clevertap.ball_result_events AS ball
+    ON bat.email = ball.email
+WHERE (
+        CAST(bat.event_time AS DATE) = CAST('2026-08-22' AS DATE)
+        OR CAST(ball.event_time AS DATE) = CAST('2026-08-22' AS DATE)
+      )
+  AND (bat.game_mode = 'Multiplayer' OR ball.game_mode = 'Multiplayer')
+GROUP BY 1
+ORDER BY 2 DESC;
