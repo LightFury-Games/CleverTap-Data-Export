@@ -344,6 +344,7 @@ Current
           ▼
 Future
    │
+   ├── Monitoring
    ├── Automated Data Quality Checks
    ├── Data Issue Alerts
    ├── Automated Daily/Weekly Reports
