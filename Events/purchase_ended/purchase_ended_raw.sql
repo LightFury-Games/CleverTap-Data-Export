@@ -1,4 +1,5 @@
-CREATE EXTERNAL TABLE clevertap.session_start (
+-- abc
+CREATE EXTERNAL TABLE clevertap.purchase_ended (
     commPrefs MAP<
         STRING,
         STRUCT<
@@ -107,4 +108,4 @@ CREATE EXTERNAL TABLE clevertap.session_start (
     >
 )
 STORED AS PARQUET
-LOCATION 's3://clevertap-prod-export/session_start';
+LOCATION 's3://clevertap-prod-export/purchase_ended';

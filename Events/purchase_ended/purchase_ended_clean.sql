@@ -1,7 +1,7 @@
 CREATE OR REPLACE VIEW clevertap.session_start_events AS
 
 SELECT
-    -- Event
+    -- Events
     eventName AS event_name,
 
     -- Unix epoch seconds -> timestamp
