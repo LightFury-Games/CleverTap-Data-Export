@@ -240,7 +240,8 @@ WITH STAN_5th_Sep_Playtest_Users AS (
 )
 
 
-select case 
+select 'STAN Playtest 5th Sep' as Playtest
+     , case 
             when device_ram in ('3GB', '4GB') then '4 GB to less than 6 GB'
             when device_ram in ('6GB', '7GB') then '6 GB to less than 8 GB'
             when device_ram in ('8GB', '11GB', '12GB', '15GB') then '8 GB or more'
@@ -289,6 +290,6 @@ where email is not null
     and device_ram <> ''
 group by 1 
 )
-group by 1 
-order by 1
+group by 1,2
+order by 1,2
 ;
