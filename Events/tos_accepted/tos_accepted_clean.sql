@@ -4,15 +4,17 @@ SELECT
     -- Event
     eventName AS event_name,
 
-    -- Unix epoch seconds -> timestamp
-    from_unixtime(
-        TRY_CAST(eventTime AS BIGINT)
-    ) AS event_time,
+    -- Unix epoch seconds (UTC) -> IST
+    from_unixtime(TRY_CAST(eventTime AS BIGINT))
+        + INTERVAL '5' HOUR
+        + INTERVAL '30' MINUTE AS event_time,
 
-    cast(from_unixtime(
-        TRY_CAST(eventTime AS BIGINT)
-    ) as date) AS event_date,
-
+    CAST(
+        from_unixtime(TRY_CAST(eventTime AS BIGINT))
+            + INTERVAL '5' HOUR
+            + INTERVAL '30' MINUTE
+        AS DATE
+    ) AS event_date,
     -- Event identifiers
     element_at(eventProps, 'user_id').member5
         AS user_id,
