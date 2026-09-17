@@ -121,5 +121,11 @@ FROM
     SELECT event_name, event_time, event_date, email, user_id, session_id
     FROM tos_viewed_events
     -- WHERE email = 'nsgamingyt0701@gmail.com'
+
+    UNION ALL
+
+    SELECT event_name, event_time, event_date, email, user_id, session_id
+    FROM ftueskip_events
+    -- WHERE email = 'nsgamingyt0701@gmail.com'
 )
 ORDER BY email, event_time;
