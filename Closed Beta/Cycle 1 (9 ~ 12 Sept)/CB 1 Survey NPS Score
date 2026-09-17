@@ -1,0 +1,29 @@
+CREATE TABLE clevertap.closed_beta_cycle_1_nps
+WITH (
+    format = 'PARQUET',
+    external_location = 's3://clevertap-prod-export/athena/closed_beta_cycle_1_nps/'
+) AS
+SELECT *
+FROM (
+    VALUES
+('harshnadkarni11@gmail.com',10),
+('savanthnarayan7070@gmail.com',7),
+('vishalbhalla6666@gmail.com',10),
+('adyomraj07@gmail.com',10),
+('ausaf9900@gmail.com',1),
+('sikkuathif@gmail.com',5),
+('papunkumarsahu356@gmail.com',7),
+('mranuragvarshney@gmail.com',9),
+('bindratarandeep738@gmail.com',10),
+('ajit91573@gmail.com',6),
+('dasarathkd2006@gmail.com',3),
+('nirbheekyadav09@gmail.com',10),
+('karthikkeyan5843kvp@gmail.com',9),
+('shamshersingh70419@gmail.com',1),
+('meersaab928@gmail.com',7),
+('muhammadhuzair232@gmail.com',8),
+('agrawalparth156@gmail.com',8),
+('monavijay1982@gmail.com',9),
+('smartid904@gmail.com',8),
+('snkslhsusi@gmail.com',10)
+) AS t(email, nps);
