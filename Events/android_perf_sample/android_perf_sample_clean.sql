@@ -6,12 +6,15 @@ SELECT
 
     eventName AS event_name,
 
-    from_unixtime(
-        TRY_CAST(eventTime AS BIGINT)
-    ) AS event_time,
+-- Unix epoch seconds (UTC) -> IST
+    from_unixtime(TRY_CAST(eventTime AS BIGINT))
+        + INTERVAL '5' HOUR
+        + INTERVAL '30' MINUTE AS event_time,
 
     CAST(
         from_unixtime(TRY_CAST(eventTime AS BIGINT))
+            + INTERVAL '5' HOUR
+            + INTERVAL '30' MINUTE
         AS DATE
     ) AS event_date,
 
