@@ -1,5 +1,4 @@
 
-
 select cast(app_launch_date as varchar) as app_launch_date
         , count(distinct app_launchers.email) as app_launchers
         , count(distinct case when app_launch_date =  DATE '2026-09-16' THEN app_launchers.email ELSE ftue.email END) as login_success_users
@@ -15,12 +14,10 @@ select cast(app_launch_date as varchar) as app_launch_date
         , count(distinct case when mp_complete_flag = 1 then match_complete.email end) as mp_match_complete_users
         
         , sum(sp_match_starts) as sp_matches_played
-        , sum(mp_match_starts) as mp_matches_played
-        , sum(total_match_starts) as total_matches_played
+        , sum(mp_match_starts)/2 as mp_matches_played
         
         , sum(sp_match_completes) as sp_match_completed
-        , sum(mp_match_completes) as mp_match_completed
-        , sum(total_match_completes) as total_match_completed
+        , sum(mp_match_completes)/2 as mp_match_completed
 from 
 (
 select distinct event_date as app_launch_date, email
@@ -60,7 +57,6 @@ select event_date as match_start_date
     
     , sum(case when game_mode = 'SinglePlayer' then 1 else 0 end) as sp_match_starts
     , sum(case when game_mode = 'Multiplayer' then 1 else 0 end) as mp_match_starts
-    , count(1) as total_match_starts
     
 from closed_beta_cycle_2 a 
 join match_start_events b using(email)
@@ -78,7 +74,6 @@ select event_date as match_complete_date
     
     , sum(case when game_mode = 'SinglePlayer' then 1 else 0 end) as sp_match_completes
     , sum(case when game_mode = 'Multiplayer' then 1 else 0 end) as mp_match_completes
-    , count(1) as total_match_completes
     
 from closed_beta_cycle_2 a 
 join match_end_events b using(email)
@@ -107,12 +102,10 @@ select 'Overall' as app_launch_date
         , count(distinct case when mp_complete_flag = 1 then match_complete.email end) as mp_match_complete_users
         
         , sum(sp_match_starts) as sp_matches_played
-        , sum(mp_match_starts) as mp_matches_played
-        , sum(total_match_starts) as total_matches_played
+        , sum(mp_match_starts)/2 as mp_matches_played
         
         , sum(sp_match_completes) as sp_match_completed
-        , sum(mp_match_completes) as mp_match_completed
-        , sum(total_match_completes) as total_match_completed
+        , sum(mp_match_completes)/2 as mp_match_completed
 from 
 (
 select distinct email
@@ -151,8 +144,7 @@ select email
     
     , sum(case when game_mode = 'SinglePlayer' then 1 else 0 end) as sp_match_starts
     , sum(case when game_mode = 'Multiplayer' then 1 else 0 end) as mp_match_starts
-    , count(1) as total_match_starts
-    
+
 from closed_beta_cycle_2 a 
 join match_start_events b using(email)
 where event_date between DATE '2026-09-16' AND DATE '2026-09-19'
@@ -168,8 +160,7 @@ select email
     
     , sum(case when game_mode = 'SinglePlayer' then 1 else 0 end) as sp_match_completes
     , sum(case when game_mode = 'Multiplayer' then 1 else 0 end) as mp_match_completes
-    , count(1) as total_match_completes
-    
+
 from closed_beta_cycle_2 a 
 join match_end_events b using(email)
 where event_date between DATE '2026-09-16' AND DATE '2026-09-19'
