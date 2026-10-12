@@ -1,8 +1,7 @@
 
-CREATE TABLE clevertap.stan_26th_sep
+CREATE TABLE lfg_clevertap_raw.stan_26th_sep_email_list
 WITH (
-    format = 'PARQUET',
-    external_location = 's3://clevertap-prod-export/athena/stan_26th_sep/'
+    format = 'PARQUET'
 ) AS
 SELECT email
 FROM (
