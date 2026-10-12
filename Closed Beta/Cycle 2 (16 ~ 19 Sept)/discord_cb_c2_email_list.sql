@@ -1,8 +1,7 @@
 
-CREATE TABLE clevertap.closed_beta_cycle_2
+CREATE TABLE lfg_clevertap_raw.closed_beta_cycle_2_email_list
 WITH (
-    format = 'PARQUET',
-    external_location = 's3://clevertap-prod-export/athena/closed_beta_cycle_2/'
+    format = 'PARQUET'
 ) AS
 SELECT email
 FROM (
